@@ -1,0 +1,20 @@
+---
+- name: Ejemplo de playbook con conexión SSM y inventario dinámico AWS
+  hosts: tag_Environment_production
+  gather_facts: true
+  vars:
+    ansible_connection: aws_ssm
+    ansible_aws_ssm_region: us-east-1
+
+  tasks:
+    - name: Ejecutar comando en las instancias EC2 a través de SSM
+      community.aws.aws_ssm:
+        instance_id: "{{ item.id }}"
+        ssm_document: "AWS-RunShellScript"
+        command: "echo 'Hola desde Ansible'"
+      loop: "{{ ansible_play_batch }}"
+      register: ssm_result
+
+    - name: Imprimir resultado
+      debug:
+        var: ssm_result.results
