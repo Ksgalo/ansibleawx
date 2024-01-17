@@ -1,0 +1,8 @@
+---
+- name: Playbook de Ping
+  hosts: all  # Todos los hosts en el inventario
+  gather_facts: false  # Desactivamos la recopilación de hechos para acelerar el proceso
+
+  tasks:
+    - name: Realizar ping
+      ping:
