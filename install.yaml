@@ -1,0 +1,4 @@
+- hosts: localhost
+  tasks:
+    - name: Install community.aws collection
+      command: ansible-galaxy collection install community.aws
